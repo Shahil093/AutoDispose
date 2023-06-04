@@ -193,4 +193,20 @@ public final class RecordingObserver<@NonNull T>
       return "OnSuccess[" + value + "]";
     }
   }
+    
+    
+     public boolean hasNextEventOfType(Class<?> eventType) {
+    for (Object event : events) {
+      if (eventType.isInstance(event)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public void assertHasNextEventOfType(Class<?> eventType) {
+    if (!hasNextEventOfType(eventType)) {
+      throw new AssertionError("Expected next event of type " + eventType.getSimpleName());
+    }
+  }
 }
